@@ -15,6 +15,7 @@ const maxScoreSpan = document.getElementById("max-score");
 
 const restartBtn = document.getElementById("restart-btn");
 const progressBar = document.getElementById("progress");
+const correctAns = document.getElementById("correct-ans")
 
 // STATE
 let score = 0;
@@ -87,6 +88,7 @@ const interval = setInterval(() => {
     }
 
     current++;
+    correctAns.innerHTML = correct
   progressBar.style.width = (current/total)*100 +"%"
     setTimeout(() => {
       locked = false;
