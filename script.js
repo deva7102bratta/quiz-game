@@ -21,7 +21,7 @@ let score = 0;
 let current = 0;
 const total = 5;
 let locked = false;
-
+progressBar.style.width = 0
 // FETCH QUESTION
 async function getQuestion() {
   const res = await fetch("https://opentdb.com/api.php?amount=1");
@@ -38,7 +38,7 @@ async function getQuestion() {
 
 // LOAD QUESTION
 async function loadQuestion() {
-
+  
   if (current >= total) {
     quizScreen.classList.remove("active");
     resultScreen.classList.add("active");
@@ -87,7 +87,7 @@ const interval = setInterval(() => {
     }
 
     current++;
-
+  progressBar.style.width = (current/total)*100 +"%"
     setTimeout(() => {
       locked = false;
       loadQuestion();
@@ -117,7 +117,7 @@ startBtn.onclick = () => {
 restartBtn.onclick = () => {
   resultScreen.classList.remove("active");
   quizScreen.classList.add("active");
-
+  progressBar.style.width = 0
   score = 0;
   current = 0;
   scoreSpan.innerHTML = 0;
