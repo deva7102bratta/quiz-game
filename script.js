@@ -25,25 +25,38 @@ let locked = false;
 progressBar.style.width = 0
 // FETCH QUESTION
 async function getQuestion() {
-  const res = await fetch("https://opentdb.com/api.php?amount=1");
+
+  const scienceCategories = [17, 18, 19, 30];
+
+  // RANDOM CATEGORY
+  const randomCategory =
+    scienceCategories[
+      Math.floor(Math.random() * scienceCategories.length)
+    ];
+
+  const res = await fetch(
+    `https://opentdb.com/api.php?amount=1&category=${randomCategory}`
+  );
+
   const data = await res.json();
 
   const q = data.results[0];
 
   let options = [...q.incorrect_answers];
+
+  // INSERT CORRECT ANSWER RANDOMLY
   const index = Math.floor(Math.random() * (options.length + 1));
+
   options.splice(index, 0, q.correct_answer);
 
   return [q.question, q.correct_answer, options];
 }
-
 // LOAD QUESTION
 async function loadQuestion() {
   
   if (current >= total) {
     quizScreen.classList.remove("active");
     resultScreen.classList.add("active");
-
     finalScoreSpan.innerHTML = score;
     maxScoreSpan.innerHTML = total;
     return;
